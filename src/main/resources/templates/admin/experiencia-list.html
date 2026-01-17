@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiencia - Admin</title>
+</head>
+<body>
+
+<h1>Experiencia laboral</h1>
+
+<a th:href="@{/admin/experiencia/new}">Nueva experiencia</a>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Puesto</th>
+        <th>Empresa</th>
+        <th>Fecha inicio</th>
+        <th>Fecha fin</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="exp : ${experiencias}">
+        <td th:text="${exp.puesto}"></td>
+        <td th:text="${exp.empresa}"></td>
+        <td th:text="${exp.fechaInicio}"></td>
+        <td th:text="${exp.fechaFin != null ? exp.fechaFin : 'Actual'}"></td>
+        <td>
+            <a th:href="@{/admin/experiencia/edit/{id}(id=${exp.id})}">
+                Editar
+            </a>
+
+            <form th:action="@{/admin/experiencia/delete/{id}(id=${exp.id})}"
+                  method="post"
+                  style="display:inline">
+                <button type="submit"
+                        onclick="return confirm('¿Eliminar esta experiencia?')">
+                    Eliminar
+                </button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${experiencia.id == null} ? 'Nueva Experiencia' : 'Editar Experiencia'">Experiencia</title>
+</head>
+<body>
+
+<h1 th:text="${experiencia.id == null} ? 'Nueva Experiencia' : 'Editar Experiencia'">Experiencia</h1>
+
+<form th:action="@{/admin/experiencia/save}" th:object="${experiencia}" method="post">
+
+    <!-- ID oculto para editar -->
+    <input type="hidden" th:field="*{id}" />
+
+    <div>
+        <label>Puesto:</label>
+        <input type="text" th:field="*{puesto}" required/>
+    </div>
+
+    <div>
+        <label>Empresa:</label>
+        <input type="text" th:field="*{empresa}" required/>
+    </div>
+
+    <div>
+        <label>Descripción:</label>
+        <textarea th:field="*{descripcion}"></textarea>
+    </div>
+
+    <div>
+        <label>Fecha inicio:</label>
+        <input type="date" th:field="*{fechaInicio}" required/>
+    </div>
+
+    <div>
+        <label>Fecha fin:</label>
+        <input type="date" th:field="*{fechaFin}"/>
+        <small>Dejar vacío si es actual</small>
+    </div>
+
+    <div>
+        <button type="submit">Guardar</button>
+        <a th:href="@{/admin/experiencia}">Cancelar</a>
+    </div>
+
+</form>
+
+</body>
+</html>
