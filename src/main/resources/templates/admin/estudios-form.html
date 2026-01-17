@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Estudios</title>
+</head>
+<body>
+
+<h1 th:text="${estudios.id == null} ? 'Nuevo Estudio' : 'Editar Estudio'"></h1>
+
+<form th:action="@{/admin/estudios/save}" th:object="${estudios}" method="post">
+
+    <!-- ID oculto (CLAVE) -->
+    <input type="hidden" th:field="*{id}" />
+
+    <div>
+        <label>Título:</label>
+        <input type="text" th:field="*{titulo}" required/>
+    </div>
+
+    <div>
+        <label>Institución:</label>
+        <input type="text" th:field="*{institucion}" required/>
+    </div>
+
+    <div>
+        <label>Descripción:</label>
+        <textarea th:field="*{descripcion}"></textarea>
+    </div>
+
+    <div>
+        <label>Fecha inicio:</label>
+        <input type="date" th:field="*{fechaInicio}" required/>
+    </div>
+
+    <div>
+        <label>Fecha fin:</label>
+        <input type="date" th:field="*{fechaFin}"/>
+    </div>
+
+    <div>
+        <button type="submit">Guardar</button>
+        <a th:href="@{/admin/estudios}">Cancelar</a>
+    </div>
+
+</form>
+
+</body>
+</html>

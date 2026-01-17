@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Estudios</title>
+</head>
+<body>
+
+<h1>Estudios</h1>
+
+<a th:href="@{/admin/estudios/new}">Nuevo estudio</a>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Título</th>
+        <th>Institución</th>
+        <th>Fecha inicio</th>
+        <th>Fecha fin</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="est : ${estudios}">
+        <td th:text="${est.titulo}"></td>
+        <td th:text="${est.institucion}"></td>
+        <td th:text="${est.fechaInicio}"></td>
+        <td th:text="${est.fechaFin != null ? est.fechaFin : 'En curso'}"></td>
+        <td>
+            <a th:href="@{'/admin/estudios/edit/' + ${est.id}}">Editar</a>
+
+            <form th:action="@{'/admin/estudios/delete/' + ${est.id}}"
+                  method="post"
+                  style="display:inline">
+                <button type="submit"
+                        onclick="return confirm('¿Eliminar este estudio?')">
+                    Eliminar
+                </button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
