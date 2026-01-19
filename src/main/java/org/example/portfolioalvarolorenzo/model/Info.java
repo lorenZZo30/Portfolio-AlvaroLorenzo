@@ -1,37 +1,43 @@
 package org.example.portfolioalvarolorenzo.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-
+import java.util.Objects;
 
 @Entity
 @Table(name = "info")
 public class Info {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @Column(nullable = false)
     private String nombre;
 
     @Column(columnDefinition = "TEXT")
     private String descripcion;
 
-    private String fotoUri;
+    @Column(name = "foto_url")
+    private String fotoUrl;
 
-    @Email
     private String email;
-
     private String linkedin;
-
     private String github;
 
-    // CONSTRUCTOR
+    // Constructor vacío (obligatorio para JPA)
     public Info() {}
 
-    // GETTERS Y SETTERS
+    // Constructor completo
+    public Info(String nombre, String descripcion, String fotoUrl, String email, String linkedin, String github) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.fotoUrl = fotoUrl;
+        this.email = email;
+        this.linkedin = linkedin;
+        this.github = github;
+    }
 
+    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -56,12 +62,12 @@ public class Info {
         this.descripcion = descripcion;
     }
 
-    public String getFotoUri() {
-        return fotoUri;
+    public String getFotoUrl() {
+        return fotoUrl;
     }
 
-    public void setFotoUri(String fotoUri) {
-        this.fotoUri = fotoUri;
+    public void setFotoUrl(String fotoUrl) {
+        this.fotoUrl = fotoUrl;
     }
 
     public String getEmail() {
@@ -86,5 +92,18 @@ public class Info {
 
     public void setGithub(String github) {
         this.github = github;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Info info = (Info) o;
+        return Objects.equals(id, info.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

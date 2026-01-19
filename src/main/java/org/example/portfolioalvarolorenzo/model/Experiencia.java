@@ -1,36 +1,49 @@
 package org.example.portfolioalvarolorenzo.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "experiencia")
 public class Experiencia {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @Column(nullable = false)
     private String puesto;
 
-    @NotBlank
+    @Column(nullable = false)
     private String empresa;
 
     @Column(columnDefinition = "TEXT")
     private String descripcion;
 
-    @NotNull
+    @Column(name = "fecha_inicio", nullable = false)
     private LocalDate fechaInicio;
+
+    @Column(name = "fecha_fin")
     private LocalDate fechaFin;
 
-    // CONSTRUCTOR
+    // Constructores
     public Experiencia() {}
 
-    // GETTERS Y SETTERS
+    public Experiencia(String puesto, String empresa, String descripcion, LocalDate fechaInicio, LocalDate fechaFin) {
+        this.puesto = puesto;
+        this.empresa = empresa;
+        this.descripcion = descripcion;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+    }
 
+    // Método útil para saber si es trabajo actual
+    public boolean esActual() {
+        return fechaFin == null;
+    }
+
+    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -47,20 +60,20 @@ public class Experiencia {
         this.puesto = puesto;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
     public String getEmpresa() {
         return empresa;
     }
 
     public void setEmpresa(String empresa) {
         this.empresa = empresa;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public LocalDate getFechaInicio() {
@@ -77,5 +90,18 @@ public class Experiencia {
 
     public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Experiencia that = (Experiencia) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

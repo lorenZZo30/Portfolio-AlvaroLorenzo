@@ -2,6 +2,7 @@ package org.example.portfolioalvarolorenzo.service;
 
 import org.example.portfolioalvarolorenzo.model.Estudios;
 import org.example.portfolioalvarolorenzo.repository.EstudiosRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +10,8 @@ import java.util.List;
 @Service
 public class EstudiosService {
 
-    private final EstudiosRepository estudiosRepository;
+    @Autowired
+    private EstudiosRepository estudiosRepository;
 
     public EstudiosService(EstudiosRepository estudiosRepository) {
         this.estudiosRepository = estudiosRepository;

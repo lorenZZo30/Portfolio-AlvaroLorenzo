@@ -2,20 +2,22 @@ package org.example.portfolioalvarolorenzo.service;
 
 import org.example.portfolioalvarolorenzo.model.Experiencia;
 import org.example.portfolioalvarolorenzo.repository.ExperienciaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ExperienciaService {
-    private final ExperienciaRepository experienciaRepository;
+    @Autowired
+    private ExperienciaRepository experienciaRepository;
 
     public ExperienciaService(ExperienciaRepository experienciaRepository) {
         this.experienciaRepository = experienciaRepository;
     }
 
     // Devuelve toda la experiencia ordenada por fecha de inicio
-    public List<Experiencia> getExperiencia() {
+    public List<Experiencia> getExperiencias() {
         return experienciaRepository.findAllByOrderByFechaInicioDesc();
     }
 

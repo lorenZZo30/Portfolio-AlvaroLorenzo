@@ -2,32 +2,55 @@ package org.example.portfolioalvarolorenzo.service;
 
 import org.example.portfolioalvarolorenzo.model.Info;
 import org.example.portfolioalvarolorenzo.repository.InfoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-// Es la capa intermedia entre el Controller y el Repository
+import java.util.List;
+
+@Service
 public class InfoService {
-    // Referencia al repositorio
-    private final InfoRepository infoRepository;
 
-    public InfoService(InfoRepository infoRepository) {
-        this.infoRepository = infoRepository;
+    @Autowired
+    private InfoRepository infoRepository;
+
+    /**
+     * Devuelve la info existente.
+     * Si no hay ninguna, devuelve null.
+     */
+    public Info getInfo() {
+        List<Info> infos = infoRepository.findAll();
+        return infos.isEmpty() ? null : infos.get(0);
+    }
+
+    /**
+     * Guarda o actualiza la info.
+     * Si tiene ID → UPDATE
+     * Si no tiene ID → INSERT
+     */
+    public void save(Info info) {
+        infoRepository.save(info);
     }
 
 
-    // Método para que devuelva la información personal (solo un registro)
-    public Info getInfo(){
-        return infoRepository.findAll()
-                .stream()
-                .findFirst()
-                .orElse(null);
-    }
-
-    // Método para guardar la información personal
-    public Info save(Info info){
-        return infoRepository.save(info);
-    }
-
-    // Elimina la información personal por id
-    public void delete(Long id){
+    /**
+     * Elimina la info por id
+     * (aunque solo debería haber una)
+     */
+    public void delete(long id) {
         infoRepository.deleteById(id);
+    }
+
+    /**
+     * Verifica si existe info
+     */
+    public boolean existeInfo() {
+        return infoRepository.count() > 0;
+    }
+
+    /**
+     * Elimina toda la info (opcional)
+     */
+    public void deleteAll() {
+        infoRepository.deleteAll();
     }
 }

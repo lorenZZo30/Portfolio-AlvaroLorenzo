@@ -2,7 +2,9 @@ package org.example.portfolioalvarolorenzo.repository;
 
 import org.example.portfolioalvarolorenzo.model.Info;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface InfoRepository extends JpaRepository<Info, Long> {
     // Es la capa de acceso a los datos.
     // Se comunica directamente con la base de datos y

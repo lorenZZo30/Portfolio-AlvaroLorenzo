@@ -1,50 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${experiencia.id == null} ? 'Nueva Experiencia' : 'Editar Experiencia'">Experiencia</title>
-</head>
+<head th:replace="fragments/header :: header"></head>
 <body>
 
-<h1 th:text="${experiencia.id == null} ? 'Nueva Experiencia' : 'Editar Experiencia'">Experiencia</h1>
+<div class="container mt-5">
+    <h1 class="mb-4" th:text="${experiencia.id == null} ? 'Nueva Experiencia' : 'Editar Experiencia'"></h1>
 
-<form th:action="@{/admin/experiencia/save}" th:object="${experiencia}" method="post">
+    <form th:action="@{/admin/experiencia/save}" th:object="${experiencia}" method="post" class="card card-body shadow">
 
-    <!-- ID oculto para editar -->
-    <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{id}"/>
 
-    <div>
-        <label>Puesto:</label>
-        <input type="text" th:field="*{puesto}" required/>
-    </div>
+        <div class="mb-3">
+            <label class="form-label">Puesto</label>
+            <input type="text" th:field="*{puesto}" class="form-control" required/>
+        </div>
 
-    <div>
-        <label>Empresa:</label>
-        <input type="text" th:field="*{empresa}" required/>
-    </div>
+        <div class="mb-3">
+            <label class="form-label">Empresa</label>
+            <input type="text" th:field="*{empresa}" class="form-control" required/>
+        </div>
 
-    <div>
-        <label>Descripción:</label>
-        <textarea th:field="*{descripcion}"></textarea>
-    </div>
+        <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <textarea th:field="*{descripcion}" class="form-control"></textarea>
+        </div>
 
-    <div>
-        <label>Fecha inicio:</label>
-        <input type="date" th:field="*{fechaInicio}" required/>
-    </div>
+        <div class="mb-3">
+            <label class="form-label">Fecha inicio</label>
+            <input type="date" th:field="*{fechaInicio}" class="form-control" required/>
+        </div>
 
-    <div>
-        <label>Fecha fin:</label>
-        <input type="date" th:field="*{fechaFin}"/>
-        <small>Dejar vacío si es actual</small>
-    </div>
+        <div class="mb-3">
+            <label class="form-label">Fecha fin</label>
+            <input type="date" th:field="*{fechaFin}" class="form-control"/>
+            <small class="form-text text-muted">Dejar vacío si es actual</small>
+        </div>
 
-    <div>
-        <button type="submit">Guardar</button>
-        <a th:href="@{/admin/experiencia}">Cancelar</a>
-    </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/admin/experiencia}" class="btn btn-secondary ms-2">Cancelar</a>
 
-</form>
+    </form>
+</div>
 
 </body>
 </html>

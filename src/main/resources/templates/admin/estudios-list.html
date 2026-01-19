@@ -1,47 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Estudios</title>
-</head>
+<head th:replace="fragments/header :: header"></head>
 <body>
 
-<h1>Estudios</h1>
+<div class="container mt-5">
+    <h1 class="mb-4">Estudios</h1>
 
-<a th:href="@{/admin/estudios/new}">Nuevo estudio</a>
+    <a th:href="@{/admin/estudios/new}" class="btn btn-success mb-3">Nuevo Estudio</a>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>Título</th>
-        <th>Institución</th>
-        <th>Fecha inicio</th>
-        <th>Fecha fin</th>
-        <th>Acciones</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <tr th:each="est : ${estudios}">
-        <td th:text="${est.titulo}"></td>
-        <td th:text="${est.institucion}"></td>
-        <td th:text="${est.fechaInicio}"></td>
-        <td th:text="${est.fechaFin != null ? est.fechaFin : 'En curso'}"></td>
-        <td>
-            <a th:href="@{'/admin/estudios/edit/' + ${est.id}}">Editar</a>
-
-            <form th:action="@{'/admin/estudios/delete/' + ${est.id}}"
-                  method="post"
-                  style="display:inline">
-                <button type="submit"
-                        onclick="return confirm('¿Eliminar este estudio?')">
-                    Eliminar
-                </button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>Título</th>
+            <th>Institución</th>
+            <th>Fecha inicio</th>
+            <th>Fecha fin</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="est : ${estudios}">
+            <td th:text="${est.titulo}"></td>
+            <td th:text="${est.institucion}"></td>
+            <td th:text="${est.fechaInicio}"></td>
+            <td th:text="${est.fechaFin != null ? est.fechaFin : 'En curso'}"></td>
+            <td>
+                <a th:href="@{/admin/estudios/edit/{id}(id=${est.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <form th:action="@{/admin/estudios/delete/{id}(id=${est.id})}"
+                      method="post" style="display:inline">
+                    <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('¿Eliminar este estudio?')">
+                        Eliminar
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>
