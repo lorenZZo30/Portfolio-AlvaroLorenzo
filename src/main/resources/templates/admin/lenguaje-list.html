@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head('Lenguajes')"></head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Lenguajes</h1>
+
+    <a th:href="@{/admin/lenguaje/new}" class="btn btn-success mb-3">Nuevo Lenguaje</a>
+
+    <div class="d-flex gap-2">
+        <a th:href="@{/admin}" class="btn btn-light" style="margin-bottom: 30px">Volver</a>
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Icono</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="est : ${lenguajes}">
+            <td th:text="${est.name}"></td>
+            <td th:src="${est.iconoUrl}">
+                <img th:src="@{${est.iconoUrl}}"
+                     alt="Icono del lenguaje"
+                     style="max-width: 120px; max-height: 120px;">
+            </td>
+            <td>
+                <a th:href="@{/admin/lenguaje/edit/{id}(id=${est.id})}" class="btn btn-warning btn-sm">Editar</a>
+                <form th:action="@{/admin/lenguaje/delete/{id}(id=${est.id})}"
+                      method="post" style="display:inline">
+                    <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('¿Eliminar este lenguaje?')">
+                        Eliminar
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

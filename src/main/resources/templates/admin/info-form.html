@@ -1,50 +1,75 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header"></head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="~{fragments/header :: head('Información Personal - Admin')}"></head>
+<body class="d-flex flex-column min-vh-100">
+<!-- Navbar -->
+<div th:replace="~{fragments/header :: navbar}"></div>
 
-<div class="container mt-5">
-    <h1 class="mb-4" th:text="${info.id == null} ? 'Nueva Información' : 'Editar Información'"></h1>
+<div class="container-fluid flex-grow-1">
+    <div class="row">
+        <!-- Sidebar -->
+        <div th:replace="~{fragments/header :: sidebar}"></div>
 
-    <form th:action="@{/admin/info/save}" th:object="${info}" method="post" class="card card-body shadow">
+        <!-- Main Content -->
+        <main class="col-md-9 col-lg-10 px-md-4 py-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h2 text-uppercase">👤 Información Personal</h1>
+                <a th:href="@{/admin}" class="btn btn-secondary">← Volver</a>
+            </div>
 
-        <input type="hidden" th:field="*{id}"/>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <form th:action="@{/admin/info/save}" th:object="${info}" method="post">
+                                <input type="hidden" th:field="*{id}">
 
-        <div class="mb-3">
-            <label class="form-label">Nombre</label>
-            <input type="text" th:field="*{nombre}" class="form-control"/>
-        </div>
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label">Nombre Completo *</label>
+                                    <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+                                </div>
 
-        <div class="mb-3">
-            <label class="form-label">Descripción</label>
-            <textarea th:field="*{descripcion}" class="form-control"></textarea>
-        </div>
+                                <div class="mb-3">
+                                    <label for="descripcion" class="form-label">Descripción / Bio *</label>
+                                    <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="4" required></textarea>
+                                    <small class="text-muted">Breve descripción profesional</small>
+                                </div>
 
-        <div class="mb-3">
-            <label class="form-label">Foto URL</label>
-            <input type="text" th:field="*{fotoUrl}" class="form-control"/>
-        </div>
+                                <div class="mb-3">
+                                    <label for="fotoUrl" class="form-label">URL de la Foto</label>
+                                    <input type="text" class="form-control" id="fotoUrl" th:field="*{fotoUrl}" placeholder="/images/perfil.jpg">
+                                    <small class="text-muted">Ruta local o URL de tu foto de perfil</small>
+                                </div>
 
-        <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="text" th:field="*{email}" class="form-control"/>
-        </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email *</label>
+                                    <input type="email" class="form-control" id="email" th:field="*{email}" required>
+                                </div>
 
-        <div class="mb-3">
-            <label class="form-label">LinkedIn</label>
-            <input type="text" th:field="*{linkedin}" class="form-control"/>
-        </div>
+                                <div class="mb-3">
+                                    <label for="linkedin" class="form-label">LinkedIn</label>
+                                    <input type="url" class="form-control" id="linkedin" th:field="*{linkedin}" placeholder="https://linkedin.com/in/tu-perfil">
+                                </div>
 
-        <div class="mb-3">
-            <label class="form-label">GitHub</label>
-            <input type="text" th:field="*{github}" class="form-control"/>
-        </div>
+                                <div class="mb-3">
+                                    <label for="github" class="form-label">GitHub</label>
+                                    <input type="url" class="form-control" id="github" th:field="*{github}" placeholder="https://github.com/tu-usuario">
+                                </div>
 
-        <button type="submit" class="btn btn-primary">Guardar</button>
-        <a th:href="@{/admin}" class="btn btn-secondary ms-2">Cancelar</a>
-
-    </form>
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-primary">💾 Guardar</button>
+                                    <a th:href="@{/admin}" class="btn btn-light">Cancelar</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 </div>
 
+<!-- Scripts -->
+<div th:replace="~{fragments/footer :: scripts}"></div>
 </body>
 </html>

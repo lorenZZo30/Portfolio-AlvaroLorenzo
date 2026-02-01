@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LenguajeService {
@@ -15,7 +14,7 @@ public class LenguajeService {
     private LenguajeRepository lenguajeRepository;
 
     public List<Lenguaje> findAll() {
-        return lenguajeRepository.findAllByOrderByNombreAsc();
+        return lenguajeRepository.findAllByOrderByNameAsc();
     }
 
     public Lenguaje getById(Long id) {

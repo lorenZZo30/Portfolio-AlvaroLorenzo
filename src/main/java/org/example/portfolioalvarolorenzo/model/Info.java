@@ -2,14 +2,12 @@ package org.example.portfolioalvarolorenzo.model;
 
 import jakarta.persistence.*;
 import java.util.Objects;
-
 @Entity
 @Table(name = "info")
 public class Info {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id = 1L; // ID fijo
 
     @Column(nullable = false)
     private String nombre;
@@ -24,10 +22,10 @@ public class Info {
     private String linkedin;
     private String github;
 
-    // Constructor vacío (obligatorio para JPA)
+    // Constructor vacío
     public Info() {}
 
-    // Constructor completo
+    // Constructor completo sin ID (porque ya está fijo)
     public Info(String nombre, String descripcion, String fotoUrl, String email, String linkedin, String github) {
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -37,67 +35,33 @@ public class Info {
         this.github = github;
     }
 
-    // Getters y Setters
+    // Getters y Setters (ID no se setea)
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public String getFotoUrl() { return fotoUrl; }
+    public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+    public String getLinkedin() { return linkedin; }
+    public void setLinkedin(String linkedin) { this.linkedin = linkedin; }
 
-    public String getFotoUrl() {
-        return fotoUrl;
-    }
-
-    public void setFotoUrl(String fotoUrl) {
-        this.fotoUrl = fotoUrl;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getLinkedin() {
-        return linkedin;
-    }
-
-    public void setLinkedin(String linkedin) {
-        this.linkedin = linkedin;
-    }
-
-    public String getGithub() {
-        return github;
-    }
-
-    public void setGithub(String github) {
-        this.github = github;
-    }
+    public String getGithub() { return github; }
+    public void setGithub(String github) { this.github = github; }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Info)) return false;
         Info info = (Info) o;
         return Objects.equals(id, info.id);
     }

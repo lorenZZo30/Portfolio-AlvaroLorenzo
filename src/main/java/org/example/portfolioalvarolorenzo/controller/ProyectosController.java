@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/proyectos")
+@RequestMapping("/admin/proyecto")
 public class ProyectosController {
     @Autowired
     private ProyectoService proyectoService;
@@ -30,7 +30,6 @@ public class ProyectosController {
     public String nuevoProyecto(Model model) {
         model.addAttribute("proyecto", new Proyecto());
         model.addAttribute("lenguajes", lenguajeService.findAll());
-        model.addAttribute("accion", "nuevo");
         return "admin/proyecto-form";
     }
 
@@ -51,16 +50,9 @@ public class ProyectosController {
 
     @PostMapping("/save")
     public String guardar(@ModelAttribute Proyecto proyecto,
-                          @RequestParam(required = false) List<Long> lenguajesIds,
                           RedirectAttributes redirectAttributes) {
         try {
-            // Guardar proyecto
-            Proyecto proyectoGuardado = proyectoService.save(proyecto);
-
-            // Asignar lenguajes
-            if (lenguajesIds != null && !lenguajesIds.isEmpty()) {
-                proyectoService.asignarLenguajes(proyectoGuardado.getId(), lenguajesIds);
-            }
+            proyectoService.save(proyecto);
 
             redirectAttributes.addFlashAttribute("mensaje", "Proyecto guardado exitosamente");
             redirectAttributes.addFlashAttribute("tipo", "success");
@@ -70,6 +62,7 @@ public class ProyectosController {
         }
         return "redirect:/admin/proyecto";
     }
+
 
     @GetMapping("/delete/{id}")
     public String eliminar(@PathVariable Long id, RedirectAttributes redirectAttributes) {

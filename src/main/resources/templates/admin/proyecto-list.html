@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head('Proyectos realizados')"></head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Proyectos realizados</h1>
+
+    <a th:href="@{/admin/proyecto}" class="btn btn-success mb-3">Editar proyectos</a>
+
+    <div class="d-flex gap-2">
+        <a th:href="@{/admin}" class="btn btn-light" style="margin-bottom: 30px">Volver</a>
+    </div>
+
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>GitHub</th>
+            <th>Imagen</th>
+            <th>Fecha</th>
+            <th>Lenguajes</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="proy : ${proyectos}">
+            <td th:text="${proy.nombre}"></td>
+            <td th:text="${proy.descripcion}"></td>
+            <td>
+                <a th:href="${proy.githubUrl}" target="_blank" th:text="${proy.githubUrl}"></a>
+            </td>
+            <td th:src="${proy.imagenUrl}">
+                <img th:src="${proy.imagenUrl}"
+                alt="Imagen del proyecto"
+                style="max-width: 300px; max-height: 300px;">
+            </td>
+            <td th:text="${proy.fecha}"></td>
+            <td>
+                <span th:each="lenguaje : ${proy.lenguajes}" th:text="${lenguaje.name} + ' '"></span>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

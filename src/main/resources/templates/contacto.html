@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="fragments/header :: head('Contacto')"></head>
+<body class="d-flex flex-column min-vh-100">
+<div th:replace="fragments/header :: navbar"></div>
+
+<div class="container flex-grow-1 py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <h1 class="mb-4 text-center">Contacto</h1>
+
+            <div th:if="${mensajeExito}" class="alert alert-success" th:text="${mensajeExito}"></div>
+            <div th:if="${mensajeError}" class="alert alert-danger" th:text="${mensajeError}"></div>
+
+
+            <form th:action="@{/contacto/enviar}" th:object="${contacto}" method="post">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" id="nombre" th:field="*{nombre}" class="form-control" placeholder="Tu nombre" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tus datos de contacto</label>
+                    <input type="text" id="correo" th:field="*{correo}" class="form-control" placeholder="Correo" required>
+                    <input type="text" id="telefono" th:field="*{telefono}" class="form-control mt-2" placeholder="Teléfono (opcional)">
+                </div>
+
+                <div class="mb-3">
+                    <label for="mensaje" class="form-label">Mensaje</label>
+                    <textarea id="mensaje" th:field="*{mensaje}" class="form-control" rows="4" placeholder="Escribe tu mensaje" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Enviar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{fragments/footer :: scripts}"></th:block>
+</body>
+</html>

@@ -1,20 +1,118 @@
-<!-- templates/fragments/header.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <!-- CSS, meta, título general -->
+<head th:fragment="head(titulo)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}">Portfolio</title>
+
+    <!-- Bootstrap CSS Lux Theme -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <style>
+        body {
+            letter-spacing: 1px;
+        }
+
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .sidebar {
+            min-height: calc(100vh - 56px);
+            background-color: #f8f9fa;
+            border-right: 1px solid #e0e1e2;
+        }
+
+        .sidebar .nav-link {
+            color: #55595c;
+            padding: 1rem 1.5rem;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: #e0e1e2;
+            border-left-color: #1a1a1a;
+            color: #1a1a1a;
+        }
+
+        .sidebar .nav-link i {
+            margin-right: 0.5rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .card {
+            border: 1px solid #e0e1e2;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .table-actions {
+            white-space: nowrap;
+        }
+
+        .btn-group-sm .btn {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+        }
+    </style>
 </head>
+
 <body>
-<div th:fragment="header">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Mi Portfolio</a>
-        <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" th:href="@{/admin/info}">Info</a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/admin/experiencia}">Experiencia</a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/admin/estudios}">Estudios</a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/admin/proyectos}">Proyectos</a></li>
-        </ul>
-    </nav>
+<!-- Navbar Fragment -->
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">
+            📁 PORTFOLIO
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">🏠 Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin}">⚙️ Admin</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Admin Sidebar Fragment -->
+<div th:fragment="sidebar" class="col-md-3 col-lg-2 px-0 sidebar">
+    <div class="py-3">
+        <h6 class="px-3 text-uppercase text-muted mb-3" style="font-size: 0.75rem; letter-spacing: 2px;">
+            Gestión
+        </h6>
+        <nav class="nav flex-column">
+            <a th:href="@{/admin}" class="nav-link" >
+                📊 Dashboard
+            </a>
+            <a th:href="@{/admin/info/form}" class="nav-link">
+                👤 Info Personal
+            </a>
+            <a th:href="@{/admin/experiencia}" class="nav-link">
+                💼 Experiencias
+            </a>
+            <a th:href="@{/admin/estudios}" class="nav-link">
+                🎓 Estudios
+            </a>
+            <a th:href="@{/admin/proyecto}" class="nav-link">
+                🚀 Proyectos
+            </a>
+            <a th:href="@{/admin/lenguaje}" class="nav-link">
+                💻 Lenguajes
+            </a>
+        </nav>
+    </div>
 </div>
 </body>
 </html>

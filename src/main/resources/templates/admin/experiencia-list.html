@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header"></head>
+<head th:replace="fragments/header :: head('Experiencias')"></head>
 <body>
 
 <div class="container mt-5">
@@ -37,6 +37,13 @@
         </tr>
         </tbody>
     </table>
+
+    <form th:action="@{/email/send}" method="post">
+        <input type="text" name="to" id="to">
+        <input type="text" name="subject" id="subject">
+        <input type="text" name="body" id="body">
+        <input type="submit" value="Enviar">
+    </form>
 </div>
 
 </body>

@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header"></head>
+<head th:replace="fragments/header :: head('Estudios')"></head>
 <body>
 
 <div class="container mt-5">
     <h1 class="mb-4">Estudios</h1>
 
     <a th:href="@{/admin/estudios/new}" class="btn btn-success mb-3">Nuevo Estudio</a>
+
+    <div class="d-flex gap-2">
+        <a th:href="@{/admin}" class="btn btn-light" style="margin-bottom: 30px">Volver</a>
+    </div>
 
     <table class="table table-striped table-hover">
         <thead class="table-dark">

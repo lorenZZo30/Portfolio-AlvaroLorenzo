@@ -1,5 +1,26 @@
-<div th:fragment="footer">
-    <footer class="text-center mt-5">
-        <p>&copy; 2026 Mi Portfolio</p>
-    </footer>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- Footer Fragment -->
+<footer th:fragment="footer" class="mt-auto py-3 bg-dark text-white">
+    <div class="container text-center">
+        <p class="mb-0">&copy; 2025 Portfolio - Todos los derechos reservados</p>
+    </div>
+</footer>
+
+<!-- Scripts Fragment -->
+<div th:fragment="scripts">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script>
+        // Auto-ocultar alertas después de 5 segundos
+        setTimeout(function() {
+            let alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                let bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 5000);
+    </script>
 </div>
+</body>
+</html>

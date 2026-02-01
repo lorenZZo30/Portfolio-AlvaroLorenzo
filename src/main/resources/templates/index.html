@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="fragments/header :: head('Portfolio Álvaro Lorenzo')"></head>
+<body>
+<!-- Navbar -->
+<div th:replace="~{fragments/header :: navbar}"></div>
+
+<!-- Hero Section -->
+<section class="bg-dark text-white py-5">
+    <div class="container text-center py-5">
+        <div th:if="${info != null}">
+            <img th:src="@{${info.fotoUrl}}"
+                 alt="Foto de perfil"
+                 class="rounded-circle mb-4 border border-white border-3"
+                 style="width: 180px; height: 180px; object-fit: cover;">
+
+            <h1 class="display-4 mb-3 text-uppercase" th:text="${info.nombre}">Álvaro Lorenzo</h1>
+            <p class="lead mb-4" th:text="${info.descripcion}">Desarrollador Full Stack</p>
+
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a th:if="${info.email}"
+                   th:href="'mailto:' + ${info.email}"
+                   class="btn btn-light btn-lg">
+                    📧 Email
+                </a>
+                <a th:if="${info.linkedin}"
+                   th:href="${info.linkedin}"
+                   class="btn btn-primary btn-lg"
+                   target="_blank">
+                    💼 LinkedIn
+                </a>
+                <a th:if="${info.github}"
+                   th:href="${info.github}"
+                   class="btn btn-secondary btn-lg"
+                   target="_blank">
+                    🐙 GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Experiencia Section -->
+<section class="py-5" id="experiencia" th:if="${!experiencias.isEmpty()}">
+    <div class="container">
+        <h2 class="text-center mb-5 text-uppercase" style="letter-spacing: 3px;">💼 Experiencia Profesional</h2>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div th:each="exp : ${experiencias}" class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title mb-0 text-uppercase" th:text="${exp.puesto}">Puesto</h5>
+                            <span class="badge bg-primary" th:if="${exp.esActual()}">Actual</span>
+                        </div>
+                        <h6 class="card-subtitle mb-3 text-muted" th:text="${exp.empresa}">Empresa</h6>
+                        <p class="card-text" th:text="${exp.descripcion}">Descripción</p>
+                        <p class="text-muted mb-0">
+                            <small>
+                                📅 <span th:text="${#temporals.format(exp.fechaInicio, 'MM/yyyy')}"></span> -
+                                <span th:text="${exp.fechaFin != null ? #temporals.format(exp.fechaFin, 'MM/yyyy') : 'Actualidad'}"></span>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Estudios Section -->
+<section class="py-5 bg-light" id="estudios" th:if="${!estudios.isEmpty()}">
+    <div class="container">
+        <h2 class="text-center mb-5 text-uppercase" style="letter-spacing: 3px;">🎓 Formación Académica</h2>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div th:each="estudio : ${estudios}" class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title mb-0 text-uppercase" th:text="${estudio.titulo}">Título</h5>
+                            <span class="badge bg-success" th:if="${estudio.enCurso()}">En curso</span>
+                        </div>
+                        <h6 class="card-subtitle mb-3 text-muted" th:text="${estudio.institucion}">Institución</h6>
+                        <p class="card-text" th:text="${estudio.descripcion}">Descripción</p>
+                        <p class="text-muted mb-0">
+                            <small>
+                                📅 <span th:text="${#temporals.format(estudio.fechaInicio, 'MM/yyyy')}"></span> -
+                                <span th:text="${estudio.fechaFin != null ? #temporals.format(estudio.fechaFin, 'MM/yyyy') : 'Actualidad'}"></span>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Proyectos Section -->
+<section class="py-5" id="proyectos" th:if="${!proyectos.isEmpty()}">
+    <div class="container">
+        <h2 class="text-center mb-5 text-uppercase" style="letter-spacing: 3px;">🚀 Proyectos</h2>
+        <div class="row g-4">
+            <div th:each="proyecto : ${proyectos}" class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <img th:if="${proyecto.imagenUrl != null}"
+                         th:src="@{${proyecto.imagenUrl}}"
+                         class="card-img-top"
+                         alt="Proyecto"
+                         style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title text-uppercase" th:text="${proyecto.nombre}">Proyecto</h5>
+                        <p class="card-text" th:text="${proyecto.descripcion}">Descripción</p>
+
+                        <!-- Lenguajes del proyecto -->
+                        <div class="mb-3" th:if="${!proyecto.lenguajes.isEmpty()}">
+                            <small class="text-muted d-block mb-2">Tecnologías:</small>
+                            <div class="d-flex flex-wrap gap-1">
+                                    <span th:each="lenguaje : ${proyecto.lenguajes}"
+                                          class="badge bg-secondary"
+                                          th:text="${lenguaje.name}">
+                                    </span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">
+                                📅 <span th:text="${#temporals.format(proyecto.fecha, 'MM/yyyy')}"></span>
+                            </small>
+                            <a th:if="${proyecto.githubUrl != null}"
+                               th:href="${proyecto.githubUrl}"
+                               class="btn btn-sm btn-outline-dark"
+                               target="_blank">
+                                🐙 GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Lenguajes Section -->
+<section class="py-5 bg-light" id="lenguajes" th:if="${!lenguajes.isEmpty()}">
+    <div class="container">
+        <h2 class="text-center mb-5 text-uppercase" style="letter-spacing: 3px;">💻 Tecnologías</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <div th:each="lenguaje : ${lenguajes}" class="text-center">
+                        <div class="card" style="width: 120px;">
+                            <div class="card-body p-3">
+                                <div th:if="${lenguaje.iconoUrl != null}" class="mb-2">
+                                    <img th:src="@{${lenguaje.iconoUrl}}"
+                                         alt="Icono"
+                                         style="width: 50px; height: 50px; object-fit: contain;">
+                                </div>
+                                <div th:if="${lenguaje.iconoUrl == null}" class="mb-2" style="font-size: 2rem;">
+                                    💻
+                                </div>
+                                <p class="mb-0 small fw-bold text-uppercase" th:text="${lenguaje.name}">Lenguaje</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="alert alert-info text-center" role="alert">
+    <a href="/contacto" class="alert-link">Contacta conmigo</a>
+</div>
+
+
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- Scripts -->
+<div th:replace="~{fragments/footer :: scripts}"></div>
+</body>
+</html>

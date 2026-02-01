@@ -14,7 +14,7 @@ public class Lenguaje {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String nombre;
+    private String name;
 
     @Column(name = "icono_url")
     private String iconoUrl;
@@ -26,8 +26,8 @@ public class Lenguaje {
     // Constructores
     public Lenguaje() {}
 
-    public Lenguaje(String nombre, String iconoUrl) {
-        this.nombre = nombre;
+    public Lenguaje(String name, String iconoUrl) {
+        this.name = name;
         this.iconoUrl = iconoUrl;
     }
 
@@ -40,12 +40,12 @@ public class Lenguaje {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String nombre) {
+        this.name = nombre;
     }
 
     public String getIconoUrl() {

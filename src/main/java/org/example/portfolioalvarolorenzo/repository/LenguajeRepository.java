@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface LenguajeRepository extends JpaRepository<Lenguaje, Long> {
@@ -14,8 +13,7 @@ public interface LenguajeRepository extends JpaRepository<Lenguaje, Long> {
     Lenguaje getByName(String nombre);
 
     // Ordenar por nombre alfabéticamente
-    List<Lenguaje> findAllByOrderByNombreAsc();
+    List<Lenguaje> findAllByOrderByNameAsc();
 
-    // Buscar lenguaje por id
-    Lenguaje getById(long id);
+
 }
